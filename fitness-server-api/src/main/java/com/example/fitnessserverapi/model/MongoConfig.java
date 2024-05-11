@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Configuration
 @EnableMongoAuditing
 @Document()
- class MongoConfig {
+public class MongoConfig {
 }
