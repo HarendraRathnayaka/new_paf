@@ -1,59 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import AdminLayout from './pages/Admin/components/AdminLayout/AdminLayout';
-import PublicLayout from './components/PublicLayout/PublicLayout';
-import HomePage from './pages/User/Home/HomePage';
-import AdminDashboard from './pages/Admin/pages/AdminDashboard/AdminDashboard';
-import ErrorPage from './components/404/ErrorPage';
-import PrimaryLayout from './components/PrimaryLayout/PrimaryLayout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-function App() {
-  const [count, setCount] = useState(0)
+import CreateSchedul from './pages/CreateSchedul';
+import MySchedul from './pages/MySchedul';
+import UpdateWorkout from './pages/UpdateWorkout';
+import Home from './pages/Home';
 
+export default function App() {
   return (
-    <>
-    <Router>
-      <div className="">
-        <Routes>
-          {/* Public routes */}
-          <Route
-            path="/*"
-            element={
-              <PrimaryLayout>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="*" element={<ErrorPage />} /> 
-                  {/* Auth routes */}
-
-                </Routes>
-              </PrimaryLayout>
-            }
-          />
-
-          {/* Admin routes */}
-          <Route
-            path="/admin/*"
-            element={
-              <AdminLayout>
-                <Routes>
-                  <Route path="/" element={<Navigate to="dashboard" />} />
-                  <Route path="/dashboard" element={<AdminDashboard />} />
-                   {/* <Route path="game-center" element={<GameCenter />} />
-                  <Route path="gaming-room-bookings" element={<GamingRoomBookings />} /> */}
-                  <Route path="*" element={<ErrorPage />} /> 
-                </Routes>
-              </AdminLayout>
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
-  </>
-  )
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/createschedul" element={<CreateSchedul />} />
+        <Route path="/View" element={<MySchedul />} />
+        <Route path="/updateworkout/:workId" element={<UpdateWorkout />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
 }
-
-export default App

@@ -9,9 +9,10 @@ import java.util.Optional;
 
 import com.example.fitnessserverapi.model.Workout;
 import com.example.fitnessserverapi.repository.WorkoutRepository;
-import com.example.service.WorkoutService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173",methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
+@RequestMapping("/api")
 public class WorkoutController {
 
     // Autowire WorkoutRepository
@@ -29,7 +30,7 @@ public class WorkoutController {
     }
 
     // Endpoint to create a new workout
-    @PostMapping("/Workout")
+    @PostMapping("/CreateWorkout")
     public ResponseEntity<Workout> createWorkout(@RequestBody Workout workout) {
         // Save the new workout and return it with status 201 Created
         return ResponseEntity.status(201).body(this.workoutRepository.save(workout));
@@ -49,23 +50,25 @@ public class WorkoutController {
         }
     }
 
+
     // Endpoint to delete a workout by its ID
-    @DeleteMapping("/Workout/{id}")
+    @DeleteMapping("/WorkoutDelete/{id}")
     public ResponseEntity deleteWorkoutByID(@PathVariable String id) {
         Optional<Workout> optionalWorkout = this.workoutRepository.findById(id);
 
         if (optionalWorkout.isPresent()) {
             // If the workout is found, delete it and return a success message
             this.workoutRepository.deleteById(id);
-            return ResponseEntity.ok("Workout with ID " + id + " deleted successfully");
+            return ResponseEntity.ok().body("{\"message\": \"Workout with ID " + id + " deleted successfully\"}");
         } else {
             // If the workout is not found, return a message
-            return ResponseEntity.ok("The workout with ID " + id + " was not found");
+            return ResponseEntity.ok().body("{\"message\": \"The workout with ID " + id + " was not found\"}");
         }
     }
 
+
     // Endpoint to update a workout by its ID
-    @PutMapping("/Workout/{id}")
+    @PutMapping("/WorkoutUp/{id}")
     public ResponseEntity<?> updateWorkout(@PathVariable String id, @RequestBody Workout updatedWorkout) {
         Optional<Workout> optionalWorkout = this.workoutRepository.findById(id);
         if (optionalWorkout.isPresent()) {
