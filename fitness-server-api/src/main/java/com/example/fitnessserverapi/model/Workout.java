@@ -1,10 +1,8 @@
 package com.example.fitnessserverapi.model;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,8 +17,6 @@ public class Workout {
     private String description;
     private Date date;
     private List<WorkoutStateDetail> state;
-
-
 
     // Constructor
     public Workout() {
